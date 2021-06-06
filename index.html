@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        .blue {
+            color: blue;
+        }
+
+        .red {
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app1">
+        <span v-if="seen">あいうえお</span>
+        <button @click="toggle">表示{{state}}</button>
+
+        <p :class="class1">{{class1}}です</p>
+
+        <ul>
+            <li v-for="todo in todos">
+                {{todo}}
+            </li>
+        </ul>
+        <!--
+        <ul>
+            <template1 prop1="前へ"></template1>
+            <template1 prop1="次へ"></template1>
+            <template1 prop1="なるほど"></template1>
+            <template1 :prop1="varString"></template1>
+        </ul> -->
+
+        <ul>
+            <template1 v-for="item in itemList" :prop1="item" prop2="です"></template1>
+        </ul>
+    </div>
+    <script src="https://unpkg.com/vue@next "></script>
+
+    <script>
+        const App1 = {
+            data() {
+                return {
+                    varString: "hello",
+                    seen: true,
+                    state: "off ",
+                    class1: "blue ",
+                    todos: [{
+                        text: "php "
+                    }, {
+                        text: "ruby "
+                    }, {
+                        text: "python "
+                    }],
+                    itemList: [{
+                        id: 0,
+                        text: "０番目"
+                    }, {
+                        id: 1,
+                        text: "1番目"
+                    }, {
+                        id: 2,
+                        text: "2番目"
+                    }]
+                };
+            },
+
+            methods: {
+                toggle: function() {
+                    if (this.seen) {
+                        this.seen = false;
+                        this.state = "on ";
+                    } else {
+                        this.seen = true;
+                        this.state = "off ";
+                    }
+                }
+            }
+        };
+
+        app1 = Vue.createApp(App1);
+        app1.component("template1", {
+            props: ["prop1", "prop2"],
+            template: `
+            <li>{{prop1.id}}は{{prop1.text}}{{prop2}}</li>
+        `
+        });
+        app1.mount("#app1");
+    </script>
+</body>
+
+</html>
